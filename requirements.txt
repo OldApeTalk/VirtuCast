@@ -1,0 +1,29 @@
+# Core Dependencies
+unreal-engine-python>=0.1.0  # UE Python API (if available via pip)
+requests>=2.31.0
+
+# Video Processing
+ffmpeg-python>=0.2.0
+opencv-python>=4.8.0
+
+# Audio Processing
+pydub>=0.25.1
+soundfile>=0.12.1
+
+# TTS & AI
+google-generativeai>=0.8.0  # Gemini TTS
+google-cloud-texttospeech>=2.14.0
+
+# Subtitle Generation
+srt>=3.5.3
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0
+click>=8.1.0
+colorama>=0.4.6
+tqdm>=4.66.0
+
+# Optional: Additional TTS engines
+# elevenlabs>=0.2.0
+# azure-cognitiveservices-speech>=1.31.0

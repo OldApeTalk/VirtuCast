@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+env/
+ENV/
+myenv/
+
+# Unreal Engine
+ue_project/Saved/
+ue_project/Intermediate/
+ue_project/DerivedDataCache/
+ue_project/Binaries/
+ue_project/*.sln
+ue_project/*.xcworkspace
+ue_project/*.xcodeproj
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# API Keys & Secrets
+keys/
+*.json
+!config/*.json
+*.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Media Files (optional - may want to version control some)
+*.mp4
+*.wav
+*.mp3
+output/
+temp/
+renders/
+
+# Model Files
+*.pth
+*.onnx
+*.pb
+models/
+checkpoints/

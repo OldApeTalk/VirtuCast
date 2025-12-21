@@ -1,0 +1,76 @@
+# VirtuCast Default Configuration
+
+# Unreal Engine Settings
+ue5:
+  project_path: "ue_project/VirtuCast.uproject"
+  editor_path: "C:/Program Files/Epic Games/UE_5.7/Engine/Binaries/Win64/UnrealEditor.exe"
+  python_enabled: true
+
+# MetaHuman Settings
+metahuman:
+  default_anchor: "DefaultAnchor"
+  available_anchors:
+    - name: "DefaultAnchor"
+      gender: "female"
+      style: "professional"
+    - name: "MaleAnchor"
+      gender: "male"
+      style: "casual"
+
+# Studio Settings
+studio:
+  default_theme: "modern_news"
+  themes:
+    - modern_news
+    - classic_broadcast
+    - minimal_tech
+  lighting:
+    key_light_intensity: 5000
+    fill_light_intensity: 2000
+    rim_light_intensity: 3000
+
+# Camera Settings
+camera:
+  default_sequence:
+    - type: "wide"
+      duration: 3.0
+    - type: "medium"
+      duration: 5.0
+    - type: "close"
+      duration: 2.0
+  resolution:
+    width: 1920
+    height: 1080
+  fps: 30
+  
+# TTS Settings (from VideoCraft)
+tts:
+  engine: "gemini"  # or "google_cloud", "elevenlabs"
+  voice: "default"
+  language: "zh-CN"
+  speed: 1.0
+  
+# Subtitle Settings
+subtitle:
+  enabled: true
+  format: "srt"
+  font_size: 24
+  position: "bottom"
+  style:
+    color: "#FFFFFF"
+    background: "#000000"
+    opacity: 0.7
+
+# Output Settings
+output:
+  directory: "output/"
+  temp_directory: "temp/"
+  video_codec: "h264"
+  audio_codec: "aac"
+  bitrate: "8000k"
+  
+# VideoCraft Integration
+videocraft:
+  path: "../VideoCraft/src"
+  use_tts: true
+  use_subtitle_tools: true
