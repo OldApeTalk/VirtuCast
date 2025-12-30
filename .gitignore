@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 *.so
 .Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
 build/
 develop-eggs/
 dist/
@@ -25,17 +29,19 @@ ENV/
 myenv/
 
 # Unreal Engine
-ue_project/Saved/
-ue_project/Intermediate/
-ue_project/DerivedDataCache/
-ue_project/Binaries/
-ue_project/*.sln
-ue_project/*.xcworkspace
-ue_project/*.xcodeproj
+ue_project/**/Saved/
+ue_project/**/Intermediate/
+ue_project/**/DerivedDataCache/
+ue_project/**/Binaries/
+ue_project/**/Build/
+ue_project/**/*.sln
+ue_project/**/*.xcworkspace
+ue_project/**/*.xcodeproj
 
 # IDE
 .vscode/
 .idea/
+.vs/
 *.swp
 *.swo
 *~
@@ -56,6 +62,8 @@ Thumbs.db
 *.mp4
 *.wav
 *.mp3
+
+# Project outputs (renders, exported frames, temporary artifacts)
 output/
 temp/
 renders/

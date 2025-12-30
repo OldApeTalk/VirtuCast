@@ -83,6 +83,34 @@ Create a text file `my_news.txt`:
 python src/news_generator.py my_news.txt -o output/news.mp4
 ```
 
+### (Dev) One-click UE Render (PNG Sequence)
+
+Once your UE project, map, and Level Sequence are ready, VirtuCast can render via Unreal's MRQ command-line path.
+
+One-time setup in UE:
+
+1. Open **Movie Render Queue**.
+2. Create a **Primary Config Preset** that outputs **Image Sequence (PNG)**.
+3. Set **Output Directory** (absolute path) and **File Name Format** in the preset.
+4. Save the preset as a Content asset (eg. `/Game/Cinematics/MRQ/VirtuCast_PNG_1080p30`).
+
+Then set these in `config/default_config.yaml`:
+
+```yaml
+ue5:
+   map_asset: "/Script/Engine.World'/Game/Maps/Test1.Test1'"
+   sequence_asset: "/Script/LevelSequence.LevelSequence'/Game/Cinematics/CR_BungeeMan_Take1.CR_BungeeMan_Take1'"
+   mrq_config_asset: "/Game/Cinematics/MRQ/VirtuCast_PNG_1080p30.VirtuCast_PNG_1080p30"
+```
+
+Run:
+
+```bash
+python src/ue_render.py
+```
+
+Note: MRQ CLI output location is controlled by the preset asset.
+
 ### Step 3: View Output
 
 The generated video will be in `output/news.mp4`.

@@ -2,9 +2,15 @@
 
 # Unreal Engine Settings
 ue5:
-  project_path: "ue_project/VirtuCast.uproject"
-  editor_path: "C:/Program Files/Epic Games/UE_5.7/Engine/Binaries/Win64/UnrealEditor.exe"
+  project_path: "ue_project/VirtuCast/VirtuCast.uproject"
+  editor_path: "D:/Program Files (x86)/UE_5.7/Engine/Binaries/Win64/UnrealEditor.exe"
   python_enabled: true
+  map_asset: "/Script/Engine.World'/Game/Maps/Test1.Test1'"
+  sequence_asset: "/Script/LevelSequence.LevelSequence'/Game/Cinematics/CR_BungeeMan_Take1.CR_BungeeMan_Take1'"
+  # MRQ CLI render requires a Movie Render Pipeline Primary Config preset asset.
+  # Create it in UE (Movie Render Queue -> Presets -> Save As Asset) and set its reference here.
+  # Example: "/Game/Cinematics/MRQ/VirtuCast_PNG_1080p30.VirtuCast_PNG_1080p30"
+  mrq_config_asset: "/Script/MovieRenderPipelineCore.MoviePipelinePrimaryConfig'/Game/Cinematics/Pending_MoviePipelinePrimaryConfig.Pending_MoviePipelinePrimaryConfig'"
 
 # MetaHuman Settings
 metahuman:

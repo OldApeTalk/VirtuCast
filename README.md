@@ -41,6 +41,14 @@ pip install -r requirements.txt
 # Configure UE5 project (see docs)
 ```
 
+## Milestone (2025-12-30)
+
+Minimal “one-click” render is working via MRQ CLI:
+
+- `src/ue_render.py` launches Unreal with MRQ command-line rendering (`-game -LevelSequence -MoviePipelineConfig`).
+- `config/default_config.yaml` is the single source of truth for UE paths + asset references.
+- Output location and image format are controlled by the MRQ Primary Config preset asset.
+
 ## 📦 Project Structure
 
 ```

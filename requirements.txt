@@ -1,17 +1,24 @@
 # Core Dependencies
-unreal-engine-python>=0.1.0  # UE Python API (if available via pip)
+# NOTE:
+# - Unreal Engine's Python API (module `unreal`) is bundled with the UE Editor and
+#   is NOT installed via pip in this venv.
+# - If you're using a very new Python (e.g. 3.14), some binary wheels may not be
+#   available yet; those deps are guarded with markers and will be installed once
+#   you move to a supported Python (commonly 3.10/3.11).
 requests>=2.31.0
 
 # Video Processing
 ffmpeg-python>=0.2.0
-opencv-python>=4.8.0
+# OpenCV wheels may lag behind new Python versions (e.g. 3.14)
+opencv-python>=4.8.0; python_version < "3.13"
 
 # Audio Processing
-pydub>=0.25.1
-soundfile>=0.12.1
+# pydub historically relied on stdlib `audioop` (removed in newer Python versions)
+pydub>=0.25.1; python_version < "3.13"
+soundfile>=0.12.1; python_version < "3.13"
 
 # TTS & AI
-google-generativeai>=0.8.0  # Gemini TTS
+google-generativeai>=0.8.0  # Gemini API client (LLM); not a TTS engine by itself
 google-cloud-texttospeech>=2.14.0
 
 # Subtitle Generation
