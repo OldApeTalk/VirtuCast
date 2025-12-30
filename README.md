@@ -41,13 +41,26 @@ pip install -r requirements.txt
 # Configure UE5 project (see docs)
 ```
 
+## Workspace GUI (MVP)
+
+VS Code-like shell for creating a project workspace and viewing key render settings from YAML:
+
+```bash
+python src/virtucast_gui.py
+```
+
+Use `File -> New Project…` to create a workspace root folder. The app writes a marker file
+`.virtucast_workspace.json` and creates a per-workspace config `virtucast.yaml`.
+
 ## Milestone (2025-12-30)
 
-Minimal “one-click” render is working via MRQ CLI:
+Minimal “one-click” render is working:
 
-- `src/ue_render.py` launches Unreal with MRQ command-line rendering (`-game -LevelSequence -MoviePipelineConfig`).
+- Default path: `src/ue_render.py` launches Unreal and runs MRQ via the project's Python startup hook
+	(`Content/Python/init_unreal.py`) for a flexible, parameterized render.
+- Fallback path: MRQ CLI (`-game -LevelSequence -MoviePipelineConfig`).
 - `config/default_config.yaml` is the single source of truth for UE paths + asset references.
-- Output location and image format are controlled by the MRQ Primary Config preset asset.
+- In fallback MRQ CLI mode, output location and image format are controlled by the MRQ Primary Config preset asset.
 
 ## 📦 Project Structure
 

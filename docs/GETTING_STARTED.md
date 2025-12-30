@@ -109,7 +109,26 @@ Run:
 python src/ue_render.py
 ```
 
-Note: MRQ CLI output location is controlled by the preset asset.
+Notes:
+
+- By default, `src/ue_render.py` runs in **script mode** using Unreal's Python startup hook
+   `ue_project/VirtuCast/Content/Python/init_unreal.py` (guarded by `-VirtuCastAutoRender=1`) to run
+   `ue_project/VirtuCast/Scripts/virtu_render_queue.py`. This avoids the auto-quit behavior of
+   `-ExecutePythonScript` and is the flexible path: output directory, resolution, and FPS can be
+   overridden via CLI flags.
+- You can preview the generated Unreal command without launching UE:
+
+```bash
+python src/ue_render.py --dry-run
+```
+
+- If you want the simple MRQ command-line path (fallback), run:
+
+```bash
+python src/ue_render.py --mode cli
+```
+
+In `--mode cli`, the MRQ output location is controlled by the preset asset (`ue5.mrq_config_asset`).
 
 ### Step 3: View Output
 

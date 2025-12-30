@@ -197,13 +197,13 @@ def main() -> None:
     unreal.log("[VirtuCast] Starting MRQ render…")
     queue_subsystem.render_queue_with_executor_instance(executor)
 
-    # NOTE: When running via -ExecutePythonScript, Unreal may automatically
-    # quit the editor as soon as the script returns. If that happens mid-render
-    # you'll see "Cmd: QUIT_EDITOR" and "PIE Ended while Movie Pipeline was
-    # still active" and you will get no output frames.
+    # IMPORTANT:
+    # Do NOT busy-wait in Python here.
+    # Python execution runs on the editor/game thread; a blocking while-loop
+    # can starve engine ticking and prevent MRQ from progressing.
     #
-    # To prevent that, we keep this script alive until MRQ finishes.
-    # We use short sleeps so the editor/game thread can continue ticking.
+    # Instead, register a tick callback and return. The editor keeps running,
+    # MRQ can tick normally, and we quit the editor when MRQ finishes.
     start_time = time.time()
     last_heartbeat = {"t": start_time}
     timeout_seconds = 60 * 60
@@ -220,25 +220,46 @@ def main() -> None:
         except Exception:
             pass
 
-    unreal.log("[VirtuCast] Waiting for MRQ completion…")
-    while not done["finished"] and (time.time() - start_time) <= timeout_seconds:
+    def _unregister_tick():
+        handle = _KEEPALIVE.get("tick_handle")
+        if handle is None:
+            return
+        try:
+            if hasattr(unreal, "unregister_slate_post_tick_callback"):
+                unreal.unregister_slate_post_tick_callback(handle)
+        except Exception:
+            pass
+
+    def _tick_callback(*_args):
         now = time.time()
+
+        if done["finished"]:
+            unreal.log(f"[VirtuCast] Render complete (success={done['success']}); quitting editor.")
+            _unregister_tick()
+            _quit_editor()
+            return
+
+        if (now - start_time) > timeout_seconds:
+            unreal.log_warning("[VirtuCast] Render timeout; quitting editor.")
+            _unregister_tick()
+            _quit_editor()
+            return
+
         if (now - last_heartbeat["t"]) >= 10.0:
             elapsed = int(now - start_time)
             unreal.log(f"[VirtuCast] MRQ still running… elapsed={elapsed}s")
             last_heartbeat["t"] = now
 
-        try:
-            unreal.SystemLibrary.sleep(0.25)
-        except Exception:
-            time.sleep(0.25)
+    if not hasattr(unreal, "register_slate_post_tick_callback"):
+        unreal.log_warning("[VirtuCast] Slate tick callback API not available; MRQ may stall under -ExecutePythonScript.")
+        return
 
-    if not done["finished"]:
-        unreal.log_warning("[VirtuCast] Render timeout; quitting editor.")
-    else:
-        unreal.log(f"[VirtuCast] Render complete (success={done['success']}); quitting editor.")
+    unreal.log("[VirtuCast] Waiting for MRQ completion (tick callback)…")
+    tick_handle = unreal.register_slate_post_tick_callback(_tick_callback)
 
-    _quit_editor()
+    # Keep tick callback + handle alive.
+    _KEEPALIVE["tick_handle"] = tick_handle
+    _KEEPALIVE["tick_callback"] = _tick_callback
 
 
 if __name__ == "__main__":

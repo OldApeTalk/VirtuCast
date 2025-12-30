@@ -5,6 +5,12 @@ ue5:
   project_path: "ue_project/VirtuCast/VirtuCast.uproject"
   editor_path: "D:/Program Files (x86)/UE_5.7/Engine/Binaries/Win64/UnrealEditor.exe"
   python_enabled: true
+  # Render mode:
+  # - script: run UE-side python via -ExecutePythonScript (flexible; recommended)
+  # - cli: MRQ command-line render via -LevelSequence/-MoviePipelineConfig (simple fallback)
+  render_mode: "script"
+  # UE-side script used by render_mode=script
+  render_script: "ue_project/VirtuCast/Scripts/virtu_render_queue.py"
   map_asset: "/Script/Engine.World'/Game/Maps/Test1.Test1'"
   sequence_asset: "/Script/LevelSequence.LevelSequence'/Game/Cinematics/CR_BungeeMan_Take1.CR_BungeeMan_Take1'"
   # MRQ CLI render requires a Movie Render Pipeline Primary Config preset asset.
